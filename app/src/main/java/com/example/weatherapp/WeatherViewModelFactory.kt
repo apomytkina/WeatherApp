@@ -11,6 +11,6 @@ class WeatherViewModelFactory(
     private val weatherRepository: WeatherRepository
 ): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return WeatherViewModel(cityName, weatherRepository) as T
+            return WeatherViewModel(weatherRepository) as T
     }
 }

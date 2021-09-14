@@ -10,12 +10,10 @@ import com.example.weatherapp.Model.Forecast
 import com.example.weatherapp.Repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
-    private val cityName: String,
     private val weatherRepository: WeatherRepository,
 ) : ViewModel() {
     private val _forecast = MutableLiveData<Forecast>()
@@ -24,8 +22,8 @@ class WeatherViewModel @Inject constructor(
     private val _currentWeather = MutableLiveData<CurrentWeather>()
     val currentWeather: LiveData<CurrentWeather> = _currentWeather
 
-    fun getCurrentWeather(city: String) = viewModelScope.launch {
-            weatherRepository.getCurrentWeather(city).let { response ->
+    fun getCurrentWeather() = viewModelScope.launch {
+            weatherRepository.getCurrentWeather().let { response ->
                 if (response.isSuccessful && response.body() != null)
                     _currentWeather.postValue(response.body())
                 else
@@ -33,8 +31,8 @@ class WeatherViewModel @Inject constructor(
             }
         }
 
-    fun getForecast(city: String) = viewModelScope.launch {
-        weatherRepository.getForecast(city).let { response ->
+    fun getForecast() = viewModelScope.launch {
+        weatherRepository.getForecast().let { response ->
             if (response.isSuccessful && response.body() != null)
                 _forecast.postValue(response.body())
             else
@@ -43,7 +41,7 @@ class WeatherViewModel @Inject constructor(
     }
 
     init {
-        getCurrentWeather(cityName)
-        getForecast(cityName)
+        getCurrentWeather()
+        getForecast()
     }
 }
