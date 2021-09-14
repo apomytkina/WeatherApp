@@ -1,6 +1,6 @@
 # WeatherApp
 
-This is an Android App when you and current weather and 7 days forecast depending on a city
+This is an Android App that shows you current weather and 7 days forecast depending on a city
 
 # Features
 
